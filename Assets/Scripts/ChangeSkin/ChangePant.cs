@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.LightingExplorerTableColumn;
 public enum PantType
 {
     Chambi = 0, Comy = 1, Dabao = 2, Onion = 3, Rainbow = 4, Vantim = 5, None ,Random
