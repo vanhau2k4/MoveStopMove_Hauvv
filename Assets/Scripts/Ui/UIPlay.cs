@@ -17,6 +17,8 @@ public class UIPlay : MonoBehaviour
     public TMP_Text textCoin;
     public int lastScoin;
     public SpawnEnemy spawnEnemy;
+
+    public MainJoystick joystick;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +38,7 @@ public class UIPlay : MonoBehaviour
     {
         canvasMenu.SetActive(false);
         spawnEnemy.SpamnEnemy();
+        joystick.isJovstick = true;
         inputCanvas.gameObject.SetActive(true);
         canvasName.gameObject.SetActive(true);
         canvasRadiu.gameObject.SetActive(true);

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,5 +38,7 @@ public class MainJoystick : MonoBehaviour
     public void EnableJoystickInput()
     {
         isJovstick = true;
+        movementDirection = Vector3.zero;
     }
+
 }

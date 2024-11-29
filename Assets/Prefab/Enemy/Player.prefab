@@ -856,12 +856,16 @@ MonoBehaviour:
   scoreText: {fileID: 6635772949463839978}
   scaleAnimator: {fileID: 4575837762612738440}
   lastScalePointThreshold: 0
+  souscePlay: {fileID: 0}
   cricleTarget: {fileID: 5448832267170275774, guid: d4abbb2a4bd33c54185501034c119f94, type: 3}
+  capsuleCollider: {fileID: 4633856108741553697}
+  characted: {fileID: 9000145863726756552}
   virtualCamera: {fileID: 0}
   followPoint: {fileID: 7479524944279224889}
   lookAtPoint: {fileID: 6895819151788650814}
   canVas: {fileID: 5727488870644130602}
   canvasDie: {fileID: 0}
+  dieCheck: 0
   scaleIncrease: {x: 0.2, y: 0.2, z: 0.2}
 --- !u!114 &5922744418631703575
 MonoBehaviour:
@@ -894,7 +898,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a620c0db6540e2644a294e9855fa1173, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hatType: 0
+  hatType: 5
   Hats:
   - {fileID: 4050719894185653796, guid: abc5a072852adc64dbcbfdd899aba9fa, type: 3}
   - {fileID: 1718353031064500570, guid: c877883e9d59816498f2978d38cbee75, type: 3}
@@ -913,7 +917,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc8fa3357d37b84bbe21478175e7527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PantType: 1
+  PantType: 7
   ListPant:
   - {fileID: 2100000, guid: 9c2f6c991532f6d4eaed6d77c33c9bb6, type: 2}
   - {fileID: 2100000, guid: 94eec3b6ffbf1ea44b1283d1655921b3, type: 2}

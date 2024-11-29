@@ -82,10 +82,11 @@ public class Player : CharactedBase
         base.Die(); 
         dieCheck = true;
         Invoke(nameof(CanvasDie), 1);
-        stateMachine.ChangeState(playerDieState);
-        joystick.inputCanvas.gameObject.SetActive(false);
         joystick.movementDirection = Vector3.zero;
         joystick.movementSpeed = 0;
+        joystick.isJovstick = false;
+        stateMachine.ChangeState(playerDieState);
+        joystick.inputCanvas.gameObject.SetActive(false);
         capsuleCollider.enabled = false;
         characted.enabled = false;
         souscePlay.src.clip = souscePlay.lost;
