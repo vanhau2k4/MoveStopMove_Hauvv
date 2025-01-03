@@ -33,10 +33,7 @@ public class CharactedBase : MonoBehaviour
     public int lastScalePointThreshold = 0 ;
 
     public SouscePlay souscePlay;
-    protected virtual void Awake()
-    {
-        
-    }
+    public int amount;
 
     protected virtual void Start()
     {
@@ -49,12 +46,7 @@ public class CharactedBase : MonoBehaviour
 
     protected virtual void Update()
     {
-
-    }
-    
-    protected virtual void OnInit()
-    {
-
+        FindTarget(transform.position);
     }
 
     public virtual void Attack()
@@ -123,6 +115,7 @@ public class CharactedBase : MonoBehaviour
     }
     public virtual void Die()
     {
+        SpawnEnemy.spawnCounter--;
         souscePlay.src.clip = souscePlay.touch;
         souscePlay.src.Play();
         souscePlay.src.clip = souscePlay.die;
@@ -131,7 +124,23 @@ public class CharactedBase : MonoBehaviour
     }
     public virtual void AddPoint(int enemyPoints)
     {
-
+        amount = 1;
+        if (enemyPoints >= 3 && enemyPoints <= 7)
+        {
+            amount = 2;
+        }
+        else if (enemyPoints >= 8 && enemyPoints <= 12)
+        {
+            amount = 3;
+        }
+        else if (enemyPoints >= 13 && enemyPoints <= 17)
+        {
+            amount = 4;
+        }
+        else if (enemyPoints >= 18 && enemyPoints <= 24)
+        {
+            amount = 5;
+        }
     }
     
     private void OnDrawGizmosSelected()

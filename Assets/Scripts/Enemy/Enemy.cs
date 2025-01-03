@@ -28,9 +28,12 @@ public class Enemy : CharactedBase
     public string randomName;
     public Canvas canVas;
 
-    protected override void Awake()
+    private OffscreenIndicators offscreenIndicators;
+    private ChangeHat changeHat;
+    private ChangePant changePant;
+    
+    private void Awake()
     {
-        base.Awake();
         stateMachine = new EnemyStateMachine();
         enemyIdle = new EnemyIdle(this, stateMachine, "Idle");
         enemyMove = new EnemyMove(this, stateMachine, "Move");
@@ -42,13 +45,20 @@ public class Enemy : CharactedBase
     protected override void Start()
     {
         spawnEnemy = FindObjectOfType<SpawnEnemy>();
+        offscreenIndicators = FindObjectOfType<OffscreenIndicators>();
+        changePant = GetComponent<ChangePant>();
+        changeHat = GetComponent<ChangeHat>();
         base.Start();
         stateMachine.Initialize(enemyIdle);
         capsuleCollider = GetComponent<CapsuleCollider>();
-        RandomName();
+        
         UpdateText();
-        point = Random.Range(0,25);
+        RandomPointEnemy();
         UpdateScoreText();
+    }
+    public void RandomPointEnemy()
+    {
+        point = Random.Range(0, 25);
     }
     private void RandomName()
     {
@@ -57,16 +67,17 @@ public class Enemy : CharactedBase
         {
             randomName += nameEnemy[Random.Range(0, nameEnemy.Length)]; 
         }
+
     }
-    private void UpdateText()
+    public void UpdateText()
     {
+        RandomName();
         nameEnemyText.text = randomName;
     }
     protected override void Update()
     {
         base.Update();
         stateMachine.currentState.Update();
-        FindTarget(transform.position);
 
         // Kiểm tra thời gian để di chuyển
         timeToMove += Time.deltaTime;
@@ -99,27 +110,7 @@ public class Enemy : CharactedBase
     }
     public override void AddPoint(int enemyPoints)
     {
-
         base.AddPoint(enemyPoints);
-        int amount = 1;
-
-        if (enemyPoints >= 3 && enemyPoints <= 7)
-        {
-            amount = 2;
-        }
-        else if (enemyPoints >= 8 && enemyPoints <= 12)
-        {
-            amount = 3;
-        }
-        else if (enemyPoints >= 13 && enemyPoints <= 17)
-        {
-            amount = 4;
-        }
-        else if (enemyPoints >= 18 && enemyPoints <= 24)
-        {
-            amount = 5;
-        }
-        // Kiểm tra nếu đạt ngưỡng 10 điểm
 
         point += amount;
         UpdateScoreText();
@@ -142,9 +133,32 @@ public class Enemy : CharactedBase
         stateMachine.ChangeState(enemyDie);
         capsuleCollider.enabled = false;
         agent.speed = 0;
-        Destroy(gameObject, 2f);
+        if (SpawnEnemy.spawnCounter > 8) Invoke(nameof(BackEnemy),4);
+        Invoke(nameof(HideEnemy),2);
     }
-
+    private void HideEnemy()
+    {
+        offscreenIndicators.SyncIndicatorState(transform, false);
+        gameObject.SetActive(false);
+    }
+    public void BackEnemy()
+    {
+        if(spawnEnemy.beBack == true)
+        {
+            stateMachine.ChangeState(enemyIdle);
+            capsuleCollider.enabled = true;
+            agent.speed = 5;
+            randomName = "";
+            RandomPointEnemy();
+            UpdateScoreText();
+            UpdateText();
+            ChangeColor();
+            changePant.ApplyPantChange();
+            transform.position = new Vector3(Random.Range(-40, 41), 0, Random.Range(-40, 41));
+            offscreenIndicators.SyncIndicatorState(transform, true);
+            gameObject.SetActive(true);
+        }
+    }
     // Hàm RandomPoint: Tìm một điểm hợp lệ trên NavMesh gần vị trí ngẫu nhiên được chọn trong phạm vi cho trước
     private bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {

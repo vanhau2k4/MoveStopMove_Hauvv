@@ -26,9 +26,9 @@ public class PlayerIdleState : PlayerState
         {
             stateMachine.ChangeState(player.playerAttackState);
         }
-        if (spawnEnemy.spawnCounter == 0) 
+        if (SpawnEnemy.spawnCounter + 1 <= 1) 
         {
-            stateMachine.ChangeState(player.playerDanceState); 
+            player.Win();
         }
     }
 }

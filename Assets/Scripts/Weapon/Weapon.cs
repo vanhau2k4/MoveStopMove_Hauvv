@@ -15,8 +15,16 @@ public class Weapon : MonoBehaviour
     private GameObject currentWeapon;
     public void Shoot(CharactedBase characted)
     {
-        currentWeapon = Instantiate(weapons[(int)wpType], firePoint.position, firePoint.rotation);
-        Bullet bullet = currentWeapon.GetComponent<Bullet>();
+        if (currentWeapon == null)
+        {
+            currentWeapon = Instantiate(weapons[(int)wpType], firePoint.position, firePoint.rotation);
+        }
+        else
+        {
+            currentWeapon.transform.position = firePoint.position;
+            currentWeapon.SetActive(true);
+        }
+            Bullet bullet = currentWeapon.GetComponent<Bullet>();
 
         if (bullet != null)
         {

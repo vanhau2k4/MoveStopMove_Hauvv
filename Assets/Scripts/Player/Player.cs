@@ -31,13 +31,16 @@ public class Player : CharactedBase
 
     public Canvas canVas;
     public Canvas canvasDie;
+    public Canvas canvasWin;
 
+    public UiDie uiDie;
+    public UIWin uiWin;
     public bool dieCheck = false;
+    public bool winCheck = false;
 
     
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         stateMachine = new PlayerStateMachine();
 
         playerIdleState = new PlayerIdleState(this, stateMachine, "Idle");
@@ -63,12 +66,15 @@ public class Player : CharactedBase
     {
         base.Update();
         stateMachine.currentState.Update();
-        FindTarget(transform.position);
         CircleTarget();
         if (point >= lastScalePointThreshold + 10)
         {
             lastScalePointThreshold += 10;
             ScaleAnimator();
+        }
+        if(SpawnEnemy.spawnCounter + 1 <= 1)
+        {
+            winCheck = true;
         }
     }
 
@@ -82,6 +88,7 @@ public class Player : CharactedBase
         base.Die(); 
         dieCheck = true;
         Invoke(nameof(CanvasDie), 1);
+        
         joystick.movementDirection = Vector3.zero;
         joystick.movementSpeed = 0;
         joystick.isJovstick = false;
@@ -93,15 +100,48 @@ public class Player : CharactedBase
         souscePlay.src.Play();
         Invoke(nameof(AnPlayer), 2);
     }
+    public void Win()
+    {
+        Invoke(nameof(CanvasWin), 3);
+        joystick.movementDirection = Vector3.zero;
+        joystick.movementSpeed = 0;
+        joystick.isJovstick = false;
+        stateMachine.ChangeState(playerDanceState);
+        joystick.inputCanvas.gameObject.SetActive(false);
+        capsuleCollider.enabled = false;
+        characted.enabled = false;
+        souscePlay.src.clip = souscePlay.win;
+        souscePlay.src.Play();
+    }
+    private void CanvasWin()
+    {
+        canvasWin.gameObject.SetActive(true);
+        uiWin.ScoreFinals();
+        
+    }
     public void CanvasDie()
     {
         canvasDie.gameObject.SetActive(true);
+        uiDie.ScoreFinals();
     }
     private void AnPlayer()
     {
         gameObject.SetActive(false);
     }
-    
+    public void SpamwPlayer()
+    {
+        gameObject.SetActive(true);
+        transform.position = Vector3.zero;
+        transform.rotation = Quaternion.Euler(0, 180, 0);
+        joystick.movementSpeed = 10;
+        capsuleCollider.enabled = true;
+        characted.enabled = true;
+        point = 0;
+        winCheck = false;
+        scaleAnimator.transform.localScale = new Vector3(1, 1, 1);
+        UpdateScoreText();
+        dieCheck = false;
+    }
     private void CircleTarget()
     {
         if (target.HasValue)
@@ -129,25 +169,6 @@ public class Player : CharactedBase
     public override void AddPoint(int enemyPoints)
     {
         base.AddPoint(enemyPoints);
-        int amount = 1;
-
-        if (enemyPoints >= 3 && enemyPoints <= 7)
-        {
-            amount = 2;
-        }
-        else if (enemyPoints >= 8 && enemyPoints <= 12)
-        {
-            amount = 3;
-        }
-        else if (enemyPoints >= 13 && enemyPoints <= 17)
-        {
-            amount = 4;
-        }
-        else if (enemyPoints >= 18 && enemyPoints <= 24)
-        {
-            amount = 5;
-        }
-        // Kiểm tra nếu đạt ngưỡng 10 điểm
 
         point += amount;
         GameManager.Instance.scoin = point;

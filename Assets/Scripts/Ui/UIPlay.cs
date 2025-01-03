@@ -37,7 +37,7 @@ public class UIPlay : MonoBehaviour
     private void PlayGame()
     {
         canvasMenu.SetActive(false);
-        spawnEnemy.SpamnEnemy();
+        spawnEnemy.InitializeEnemies();
         joystick.isJovstick = true;
         inputCanvas.gameObject.SetActive(true);
         canvasName.gameObject.SetActive(true);

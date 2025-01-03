@@ -10,7 +10,6 @@ public class PlayerState
     private string animBoolName;
 
     protected bool triggerCalled;
-    public SpawnEnemy spawnEnemy;
     public SouscePlay souscePlay;
     public PlayerState(Player _player,PlayerStateMachine _stateMachine,string _animBoolState)
     {
@@ -18,18 +17,10 @@ public class PlayerState
         this.stateMachine = _stateMachine;
         this.animBoolName = _animBoolState;
     }
-    private void Start()
-    {
-    }
     public virtual void Enter()
     {
         player.anim.SetBool(animBoolName, true);
         joystick = player.joystick;
-        if(player.spawnEnemy != null)
-        {
-            spawnEnemy = player.spawnEnemy;
-            
-        }
         souscePlay = player.souscePlay;
     }
     public virtual void Update()

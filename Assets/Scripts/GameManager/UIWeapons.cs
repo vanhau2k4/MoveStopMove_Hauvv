@@ -12,12 +12,6 @@ public class UIWeapons : MonoBehaviour
     {
         buttonWeapons.onClick.AddListener(Shop);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void Shop()
     {
         canvasShop.SetActive(true);

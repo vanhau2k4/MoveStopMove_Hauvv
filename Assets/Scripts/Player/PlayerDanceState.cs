@@ -10,21 +10,9 @@ public class PlayerDanceState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        souscePlay.src.clip = souscePlay.win;
-        souscePlay.src.Play();
-        player.StartCoroutine(DelayedWin());
-        player.StartCoroutine(DelayedWins());
     }
-    private IEnumerator DelayedWin()
-    {
-        yield return new WaitForSeconds(3);
-        Win();
-    }
-    private IEnumerator DelayedWins()
-    {
-        yield return new WaitForSeconds(3);
-        ExitWin();
-    }
+
+
     public override void Exit()
     {
         base.Exit();
@@ -34,14 +22,10 @@ public class PlayerDanceState : PlayerState
     public override void Update()
     {
         base.Update();
-        
-    }
-    public void ExitWin()
-    {
-        stateMachine.ChangeState(player.playerIdleState);
-    }
-    public void Win()
-    {
-        player.canvasDie.gameObject.SetActive(true);
+        if(player.winCheck != true)
+        {
+            if (joystick.movementDirection.sqrMagnitude > 0) stateMachine.ChangeState(player.playerMoveState);
+            if (joystick.movementDirection.sqrMagnitude == 0 && player.target == null) stateMachine.ChangeState(player.playerIdleState);
+        }
     }
 }

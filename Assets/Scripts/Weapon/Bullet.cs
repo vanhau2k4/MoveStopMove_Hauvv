@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
     private Vector3 target;
     private CharactedBase owner;
     private float timer = 0f; // Bộ đếm thời gian
-    private float lifespan = 0.5f; // Thời gian tồn tại của viên đạn là 2 giây
+    private float lifespan = 0.6f; 
 
     public void Initialize(Vector3 targetPosition, CharactedBase characterOwner)
     {
@@ -18,20 +18,18 @@ public class Bullet : MonoBehaviour
         rb.useGravity = false;
         Move();
     }
-    private void Start()
-    {
-    }
     private void Update()
     {
         // Quay viên đạn
         transform.eulerAngles = new Vector3(90, 0, quay);
         quay += 1000 * Time.deltaTime;
 
-        // Tăng thời gian và kiểm tra để hủy viên đạn sau 2 giây
+
         timer += Time.deltaTime;
         if (timer >= lifespan)
         {
-            Destroy(gameObject);
+            timer = 0f;
+            gameObject.SetActive(false);
             return;
         }
     }
@@ -60,7 +58,7 @@ public class Bullet : MonoBehaviour
             }
             hitCharacter.Die();
             owner.AddPoint(enemyPoints); 
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

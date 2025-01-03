@@ -23,13 +23,13 @@ public class ChangePant : MonoBehaviour
             Debug.LogWarning("Danh sách quần trống hoặc chưa có SkinnedMeshRenderer.");
             return;
         }
-        if(PantType == PantType.Random)
+        if(PantType == PantType.None)
         {
             return;
         }
         // Nếu PantType là None hoặc chỉ số không hợp lệ, chọn ngẫu nhiên một quần
         int pantIndex;
-        if (PantType == PantType.None || (int)PantType >= ListPant.Count)
+        if (PantType == PantType.Random || (int)PantType >= ListPant.Count)
         {
             pantIndex = Random.Range(0, ListPant.Count);
         }

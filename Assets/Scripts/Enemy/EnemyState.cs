@@ -8,7 +8,6 @@ public class EnemyState
     protected EnemyStateMachine stateMachine;
     protected Enemy enemy;
     public NavMeshAgent agent;
-    public SpawnEnemy spawnEnemy;
     private string animboolName;
     protected bool triggerCalled;
     public EnemyState(Enemy _enemy, EnemyStateMachine _stateMachine, string _animboolName)
@@ -25,10 +24,6 @@ public class EnemyState
     public virtual void Update()
     {
         agent = enemy.agent;
-        if (enemy.spawnEnemy != null)
-        {
-            spawnEnemy = enemy.spawnEnemy;
-        }
     }
     public virtual void Exit() 
     {

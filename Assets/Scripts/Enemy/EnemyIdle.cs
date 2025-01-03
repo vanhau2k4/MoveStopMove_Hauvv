@@ -26,7 +26,7 @@ public class EnemyIdle : EnemyState
         {
             stateMachine.ChangeState(enemy.enemyAttack);
         }
-        if (spawnEnemy.spawnCounter == 0)
+        if (SpawnEnemy.spawnCounter + 1 <= 1)
         {
             stateMachine.ChangeState(enemy.enemyDance);
         }

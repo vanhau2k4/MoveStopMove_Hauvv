@@ -19,9 +19,6 @@ public class ChangeHat : MonoBehaviour
     {
         CreateSpecificHat(); 
     }
-    private void Update()
-    {
-    }
     public void CreateSpecificHat()
     {
         if (Hats.Count == 0 || parentObject == null)
@@ -32,11 +29,11 @@ public class ChangeHat : MonoBehaviour
 
         // Nếu chọn None hoặc chỉ số mũ không hợp lệ, chọn ngẫu nhiên một mũ
         int hatIndex;
-        if(hatType == HatType.random)
+        if(hatType == HatType.None)
         {
             return;
         }
-        if (hatType == HatType.None)
+        if (hatType == HatType.random)
         {
             hatIndex = Random.Range(0, Hats.Count);
         }
