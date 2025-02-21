@@ -29,7 +29,7 @@ public class UiDie : MonoBehaviour
     
     public void ScoreFinals()
     {
-        int scoseFinal = SpawnEnemy.spawnCounter += 1;
+        int scoseFinal = 1 + SpawnEnemy.spawnCounter;
         aliveScoreFinal.text = "#" + scoseFinal;
         ScoreFinal.text = player.point.ToString();
         string lastKilledName = GameManager.Instance.KilledName;  // Đọc tên từ Singleton

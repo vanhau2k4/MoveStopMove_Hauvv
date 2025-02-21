@@ -26,9 +26,8 @@ public class UIWin : MonoBehaviour
 
     public void ScoreFinals()
     {
-        int scoseFinal = SpawnEnemy.spawnCounter += 1;
+        int scoseFinal = 1 + SpawnEnemy.spawnCounter;
         aliveScoreFinal.text = "#" + scoseFinal;
-        Debug.Log(player.point);
         ScoreFinal.text = player.point.ToString();
     }
 

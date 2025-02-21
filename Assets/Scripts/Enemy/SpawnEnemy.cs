@@ -14,7 +14,7 @@ public class SpawnEnemy : MonoBehaviour
     public List<GameObject> enemyList = new List<GameObject>();
     public OffscreenIndicators indicators;
 
-    public static int spawnCounter = 2; // Biến đếm bắt đầu từ 20
+    public static int spawnCounter = 20; // Biến đếm bắt đầu từ 20
     public TMP_Text aliveScore;
     public int targetEnemyCount;
     public bool beBack;
@@ -59,7 +59,7 @@ public class SpawnEnemy : MonoBehaviour
                 enemyList[i].SetActive(false);
             }
         }
-        spawnCounter = 2;
+        spawnCounter = 20;
     }
     // Tạo kẻ địch tại vị trí ngẫu nhiên và thêm vào danh sách
     private void SpawnEnemyAtRandomPosition()

@@ -26,5 +26,9 @@ public class PlayerMoveState : PlayerState
         {
             stateMachine.ChangeState(player.playerAttackState);
         }
+        if (SpawnEnemy.spawnCounter + 1 <= 1)
+        {
+            player.Win();
+        }
     }
 }

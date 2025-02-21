@@ -30,7 +30,6 @@ public class Bullet : MonoBehaviour
         {
             timer = 0f;
             gameObject.SetActive(false);
-            return;
         }
     }
 
@@ -57,7 +56,8 @@ public class Bullet : MonoBehaviour
                 GameManager.Instance.KilledName = enemyName;
             }
             hitCharacter.Die();
-            owner.AddPoint(enemyPoints); 
+            owner.AddPoint(enemyPoints);
+            timer = 0f;
             gameObject.SetActive(false);
         }
     }
